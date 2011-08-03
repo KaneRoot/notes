@@ -1,0 +1,47 @@
+LVM // C 
+
+
+dd if=/dev/urandom of=/dev/sdX bs=512
+cfdisk /dev/sdX
+cryptsetup luksFormat -c aes-xts-plain -s 512 -y /dev/sdXY
+
+// Réouvrir la clef
+// Il faut spécifier une étiquette
+
+cryptsetup luksOpen /dev/sdb1 etiquette
+
+// Maintenant dans /dev/mapper on a notre partition "etiquette"
+
+ls /dev/mapper
+
+
+LVM = VG LV PV 
+VG = simulation d'un DD avec des partitions (LV) dedans
+
+// On va créer un truc dans /dev (/dev/label)
+vgcreate label /dev/mapper/cryptedPartition
+vgdisplay
+
+lvcreate -L 2G label
+
+lvcreate -l 100%FREE tuto
+
+mkfs.ext4 /dev/tuto/lvol1
+
+// Démonter correctement
+
+
+cryptsetup luksOpen /dev/sdb1 cryptedPartition
+
+mkfs.ext4 /dev/mapper/cryptedPartition
+
+mkdir /tmp/testLV1
+mount /dev/monVG/lvol0 /tmp/lvol1
+
+
+// création d'un fichier keyfile bs=512= taille de bloc et count = nombre de blocs
+dd if=/dev/urandom of=/home/kane/keyfile bs=512 count=4
+
+// Création d'une seconde partition 
+cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/sdb2 /home/kane/keyfile
+cryptsetup luksOpen /dev/sdc2 nomPartitionDechiffree -d /home/kane/keyfile

@@ -1,0 +1,32 @@
+/dev/sdb1 = /boot
+/dev/sdb5 = /
+/dev/sdb6 = /home
+
+Pour tout faire tout seul : pacman -r /mnt/chroot -Syy
+
+monter / (de la clé) sur /mnt/chroot
+
+mount -t proc none /mnt/chroot/proc
+mount -t sys none /mnt/chroot/sys
+mount -o bind /dev /mnt/chroot/dev
+mount /dev/sdb6 /mnt/chroot/home
+mount /deb/sdb1 /mnt/chroot/boot
+
+dans /mnt/chroot :
+mkdir etc/pacman.d
+cd etc/pacman.d
+cp /etc/resolv.conf /mnt/chroot/etc/resolv.conf
+vim mirrorlist
+	=> Server = http://mir.archlinux.fr/$repo/os/i686
+cd /mnt/chroot
+chroot .
+pacman -Syy
+
+pacman -Sfd base
+
+passwd
+
+ls -l /dev/disk/by-uuid/
+
+modprobe kvm-intel
+qemu-kvm -hdb /dev/sdb

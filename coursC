@@ -1,0 +1,42 @@
+Etude du modèle Producteur / Consommateur
+
+(mutex = 1 jeton)
+prod => (tampon de n places) => cons
+
+
+Règle : 
+	- 1 consommateur ne peut pas prélever un message que le producteur est en train de déposer
+	- 2 le producteur attend si le buffer est plein 
+	- 3 le producteur doit être averti dès que l'une des conditions n n'est plus vérifiée
+
+Réalisation :
+	le tampon est géré comme une file circulaire
+
+	_ _ _ _ x x x x _ _ _
+			|		|
+			tête	queue
+			
+
+Exercices : 
+L'algorithme du produteur : prod(mess)
+L'algorithme du consommateur : conso()
+
+prod(mess) 
+	// Sémaphore : nplein initialisé à 0
+	//			   nvide init à n
+	
+prod(mess)
+{
+	P(nvide);
+	f[queue] = mess;
+	queue = (queue + 1) % n;
+	V(nplein);
+}
+
+conso()
+{
+	P(nplein);
+	mess = f[tete];
+	tete = (tete + 1) % n;
+	V(nvide);
+}

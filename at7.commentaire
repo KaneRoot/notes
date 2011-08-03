@@ -1,0 +1,23 @@
+bibliothèque curses en simple : CDK
+
+OPENMP = du parallélisme en C en 2 lignes
+SCREEN <=> NEERCS
+
+CONF VIMRC
+
+set t_Co=256
+
+syntax on
+colorscheme mustang
+set cindent
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+filetype plugin on
+
+omnicppcomplete = bien.
+
+NERDtree = connaissais déjà.
+
+iotop
