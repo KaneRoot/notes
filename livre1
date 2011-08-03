@@ -10,6 +10,7 @@ cat /etc/issue
 
 # commandes basiques
 date ; who ; whoami ; cal ; uname ; id ; su ; passwd ; exit ; script ; apropos (man -k) ; 
+ls ; cp ; rm ; mv ; ln ; pwd ; cd ; mkdir ; find ; cat,more,less ; file ; grep ; sort ; tail ; head ; wc
 
 man -k <motclef>
 
@@ -26,4 +27,48 @@ Périphérique c, b
 Lien symbolique l
 Fichier IPC, tube ou socket p, s
 
+Le shell
+
+Redirections : > ; >> ; < ; << ; |
+Jockers : *,?,[...]
+Protection de caractères spéciaux : '...',"...",\
+Référencement de variables : $
+Interprétation de commandes : `cmd` ou $(cmd)
+Séparation de commandes : saut de ligne, ;
+Séparation des arguments : espace, tab
+# commentaire
+~ Répertoire de connexion
+Exécution en arrière plan : &
+
+Var d'env : HOME PATH ENV
+
+Scripts de démarrage : 
+/etc/profile
+~/.bash_profile
+~/.profile		# N'est pris en compte que si bash_profile n'existe pas.
+
+$ENV			# Script déclenché pour toute instance de shell y compris le shell de connexion.
+
+Emplacement d'une commande : whereis
+alias ; unalias ; \cmd = vraie commande et pas l'alias ; type = nature d'une commande (interne, externe, alias...)
+
+FIND : 
+-name "fichier" # jockers authorisés
+-type t		# f ou d 
+-size 200M
+-group g
+-user u
+-perm d
+-mtime n	# modifier il y a "n" jours
+
+Actions : 
+-print
+-exec cmd {} \;
+-ok cmd {} \;	Idem mais avec demande de confirmation
+
+Opérateurs :
+-a 	ET (par défaut)
+-o	OU
+!	Négation
+\(...\) Une expression (doit être mise entre quotes).
 
