@@ -2,4 +2,28 @@
 NOTES
 ############
 
+uname -a 
+lsb_release -a
+cat /etc/issue
+
+# Penser à installer webmin
+
+# commandes basiques
+date ; who ; whoami ; cal ; uname ; id ; su ; passwd ; exit ; script ; apropos (man -k) ; 
+
+man -k <motclef>
+
+tree # affiche une arborescence de fichiers sous forme d'arbre.
+ls -R # affiche le contenu d'une arborescence de fichiers.
+
+Les fichiers sont définis par : 
+Un type, ses droits, le propriétaire, le groupe, la taille, les dates de dernières modification, création et d'accès.
+
+Les types de fichiers : 
+Ordinaire -
+Répertoire d
+Périphérique c, b
+Lien symbolique l
+Fichier IPC, tube ou socket p, s
+
 
