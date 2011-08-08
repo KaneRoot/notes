@@ -36,6 +36,7 @@ Référencement de variables : $
 Interprétation de commandes : `cmd` ou $(cmd)
 Séparation de commandes : saut de ligne, ;
 Séparation des arguments : espace, tab
+
 # commentaire
 ~ Répertoire de connexion
 Exécution en arrière plan : &
@@ -52,6 +53,7 @@ $ENV			# Script déclenché pour toute instance de shell y compris le shell de c
 Emplacement d'une commande : whereis
 alias ; unalias ; \cmd = vraie commande et pas l'alias ; type = nature d'une commande (interne, externe, alias...)
 
+#######################
 FIND : 
 -name "fichier" # jockers authorisés
 -type t		# f ou d 
@@ -71,4 +73,166 @@ Opérateurs :
 -o	OU
 !	Négation
 \(...\) Une expression (doit être mise entre quotes).
+
+EXEMPLES d'utitlisation:
+find . -mtime +5 -size +100k ! -name "*.png" -o -name "f*truc" -user moi -exec ls -hl {} \;
+
+#######################
+La commande LS :
+-F rajoute un suffixe ( un / si c'est un répertoire, un * si c'est une commande)
+-l lister en affichant les droits, propriétaire et groupe associé
+exemples recherches : [w-z]??[!a-v] # commence par une l de w à z + 2 l + une l qui n'est pas compris entre a et v
+
+#######################
+Commande RM : 
+-i demande confirmation
+-r récursif
+
+#######################
+Commande grep : grep 'chaine' fichier
+-v inverser le résultat de la commande
+-i ne pas tenir compte de la casse
+'^chaine' début ; 'chaine$' fin
+
+
+BASH : 
+
+$@,$* ensemble des paramètres
+$# nombre de paramètres
+$1 premier paramètre
+$0 nom du script
+
+commandes utiles pour les scripts : 
+read ; set ; env ; unset ; export ; echo ; printf ; NOM=VALEUR
+# en utilisant "set" tout seul, on a la liste des variables crées dans le shell courant
+
+
+PS1 prompt
+
+if	commandes
+then
+	commandes
+else
+	commandes
+fi
+
+while commandes
+do
+	commandes
+done
+
+for variable in suite de mots
+do
+	commandes
+done
+
+case mot in
+'modele1')
+	commandes
+	;;
+'modele2' | 'modele3')
+	commandes
+	;;
+esac
+
+test : 
+test ch1 = ch2 ; [ opt1 -a opt2 ] ; 
+
+-f fichier
+-d répertoire
+-x exécutable
+
+
+$? = code de retour de la dernière commande exécutée
+
+
+let n=n+1 # ou ((n=n+1))
+
+
+nomdelafonction()
+{
+	commandes
+}
+OU :
+function nomdelafonction{ liste commandes ;}
+
+#######################
+user{add,mod,del}
+group{add,mod,del}
+chsh : change le shell ; chfn : change le commentaire d'une personne
+
+useradd -u 1001 -g lp -G news,mail -c vampire -d /home/dracula -m -s /bin/bash dracula
+-u uid ; -g groupe (gid) ; -G autres_groupes ; -c commentaire ; -m : le répertoire est créé
+
+useradd -u 0 -o -d /root toor # l'option -o permet de prendre l'uid d'une autre personne
+
+echo "paul:pass" | chpasswd -c blowfish
+echo "princesse" | passwd --stdin paul
+
+droit "x" pour un répertoire : accès aux fichiers
+droit "r" pour un répertoire : lister les fichiers
+droit "w" pour un répertoire : créer ou supprimer des entrées dans le répertoire
+
+sticky bit : il faut être le propriétaire du fichier pour pouvoir le supprimer
+
+Endossement : SUID et SGID pour un exécutable
+Permet de by-passer les droits root (passwd permet de changer /etc/shadow)
+
+Endossement : SGID pour un répertoire
+Tout fichier ou dossier créé avec le droit SGID a comme GID celui du répertoire
+
+D'un point de vue octal : 
+4000 : SUID
+2000 : SGID
+1000 : Sticky bit
+user
+400  : read
+200  : write
+100  : exec
+group
+40   : read
+20   : write
+10   : exec
+other
+4    : read
+2    : write
+1    : exec
+
+###################
+
+Partitionnement des disques : fdisk ; cfdisk ; sfdisk ; parted ; partprobe
+
+FDISK : 
+p affiche la table de partitions
+n nouvelle partition
+d détruire une partition
+o créé une nouvelle table de partitions
+t change le type de partition
+a mettre ou enlever le drapeau de partition active
+w valide les changements
+q quitte
+
+
+#######################
+
+LVM
+PV : volume physique (partition)
+LV : volume logique 
+VG : ensemble de PV et de LV
+
+pvs : liste les PV
+pvcreate : formate un PV (écriture d'une entête)
+
+vgcreate : création d'un VG avec un ou plusieurs PV
+vgdisplay : liste les VG (-v visualise les LV et PV de chaque VG)
+vgs : liste les VG
+vgextend : agrandit un VG en ajoutant un ou plusieurs PV
+
+lvcreate : crée un LV
+lvs : liste les caractéristiques d'un LV
+lvextend : agrandit un LV, il faut ensuite agrandir le FS
+
+mkfs : crée un FS 
+resize2fs : modifie la taille d'un FS (ext2/ext3)
+
 
