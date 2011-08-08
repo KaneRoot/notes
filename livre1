@@ -406,3 +406,16 @@ init
 
 runlevel ; who -r	# niveau courant et niveau précédent
 telinit ; init		# Changement du niveau d'init
+
+update-rc.d
+
+shutdown -r +3 "maintenance"	# redémarrage dans 3 minutes
+
+
+On se crée un service : service.sh qu'on place dans /etc/init.d/
+Le lancer en rc2 :
+ln -s /etc/init.d/service.sh /etc/rc2.d/S99service.sh
+Le tuer en premier
+ln -s /etc/init.d/service.sh /etc/rc0.d/K00service.sh
+
+
