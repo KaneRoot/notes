@@ -304,6 +304,8 @@ PS
 -j : le PGID
 -L : le LWP
 -u user
+-p pid
+-o pid,gid,cmd 
 
 Bibliothèques : chargées par l'utilitaire ld.so.
 Cherche 1) les rep. mentionnés par la var. d'env. LD_LIBRARY_PATH
@@ -311,4 +313,96 @@ Cherche 1) les rep. mentionnés par la var. d'env. LD_LIBRARY_PATH
 3) parcours des rep. /lib et /usr/lib
 ldconfig permet d'ajouter des bibliothèques à tout moment
 
+#######################
 
+CRONTAB
+crontab -l : liste les tâches
+crontab -e : modifie la liste des tâches
+crontab -r : tout supprimer
+
+/etc/cron.{allow,deny}
+/var/log/cron
+
+#######################
+
+Syslog
+
+facility = sous-système
+auth,cron,daemon,ftp,kern,lpr,mail,news,syslog,user,uucp,local0 à local7
+
+priorité
+debug,info,notice,warn,err,crit,aler,emerg
+
+*.emerg		*	# tout sera redirigé sur tous les terminaux
+*.*;mail.none	/var/log/messages	
+
+logger : envoit un message enregistré par Syslog
+logwatch : génère des rapports à partir des journaux
+logrotate : fait "tourner" les journaux
+
+514/udp : protocole de Syslog
+
+swapon -s : liste les espaces de swap actifs
+
+#######################
+
+Bibliothèques dynamiques
+
+On a : bib.h et bib.c et on écrit le programme prog.c
+gcc -c bib.c
+gcc -c prog.c
+On a des fichiers .o
+Édition statique de liens: 
+gcc -static -o prog1 prog.o bib.o
+vérification : file bib.c bib.o prog1
+Suppression des symboles de l'exécutable : strip prog1
+
+lister les biblio dyn de l'exécutable : ldd prog1
+
+créer une lib dyn : gcc -shared -o liby.so bib.o
+gcc -o prog2 liby.so prog.o
+fonctionne pas car liby.so n'est pas dispo dans le path des lib !
+On regarde ça : ldconfig -p | grep "liby.so" # renvoie rien
+
+export LD_LIBRARY_PATH=${pwd}
+ldd prog2
+Le prog marche.
+
+Pour ajouter des bib. dyn. : 
+echo "/home/login/libperso" > /etc/ld.so.conf.d/bib.conf
+ldconf -v # mise à jour
+
+
+#######################
+
+Installation
+
+DPKG
+dpkg -i package.pkg 	# installation
+dpkg -r pkg 		# suppression
+dpkg -l [expr]		# liste des packages installés
+dpkg --get-selections	# liste paquets installés (nom complet)
+dpkg -s pkg		# caractéristiques d'un paquet
+dpkg -L pkg		# composants d'un paquet
+dpkg -S chemin		# recherche l'appartenance d'un fichier à un paquet
+
+APT
+apt-get update		# met à jour la base de données locale des paquets
+apt-get upgrade [pkg]	# met à jour un paquet (ou tous)
+apt-get install pkg	# installation
+apt-get clean		# supprime les fichiers "paquets"
+apt-cache search chaine	# recherche un paquet
+apt-cache show pkg	# les info d'un paquet
+
+apt-get -d install pkg	# télécharge le pkg
+apt-get -u upgrade	# met à jour tous les paquets
+apt-get --purge remove pkg
+apt-key
+
+
+#######################
+
+init
+
+runlevel ; who -r	# niveau courant et niveau précédent
+telinit ; init		# Changement du niveau d'init
