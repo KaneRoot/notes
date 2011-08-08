@@ -81,6 +81,7 @@ find . -mtime +5 -size +100k ! -name "*.png" -o -name "f*truc" -user moi -exec l
 La commande LS :
 -F rajoute un suffixe ( un / si c'est un répertoire, un * si c'est une commande)
 -l lister en affichant les droits, propriétaire et groupe associé
+-L permet de suivre les liens symboliques
 exemples recherches : [w-z]??[!a-v] # commence par une l de w à z + 2 l + une l qui n'est pas compris entre a et v
 
 #######################
@@ -234,5 +235,80 @@ lvextend : agrandit un LV, il faut ensuite agrandir le FS
 
 mkfs : crée un FS 
 resize2fs : modifie la taille d'un FS (ext2/ext3)
+
+fsck : vérifie et répare un FS
+mount : montage de partitions
+umount : l'inverse
+df : liste les FS montés, la place libre par FS
+du : la taille occupée par une arborescence
+lsof : liste les fichiers ouverts, permet de connaître les applications qui accèdent à un FS
+e2label : affiche ou met un label sur un FS. Permet de l'identifier.
+
+vol_id : Affiche un FS, son étiquette et son UUID
+
+ls : affiche les attributs d'un fichier (nombre de liens, n° d'inode)
+stat : affiche l'ensemble des attributs d'un fichier
+ln : crée un lien
+mv : déplace un lien
+rm : supprime un lien
+
+Options de montage FSTAB : defaults = automatique au démarrage + rw, inverse de noauto,ro
+Pour le montage automatique d'un FS dans un fichier, rajouter l'option 'loop'
+
+df -Th : affiche le type 
+df -i : informations sur les inodes
+df fichier : à quel FS appartient "fichier"
+e2label /dev/sda1 : connaître le label de la partition
+
+dd if=/dev/zero of=~/fichier_1g_ext3.img bs=1M count=1024 : 1024*BlockSize de 1M = 1G
+mkfs -F -j ~/fichier_1g_ext3.img : -F pour forcer le formatage (ne s'applique qu'aux partitions normalement) -j pour la journalisation
+
+mount -t ext3 -o loop ~/fichier_1g_ext3.img /mnt/disk
+fsck -f ~/fichier_1g_ext3.img : test en profondeur
+
+#######################
+
+Sauvegarde
+
+touch : permet de modifier la date de dernière modification d'un fichier
+
+
+tar -cvzf ~/fichier_sauvegarde.tar.gz /etc
+tar -tvzf ~/fichier_sauvegarde.tar.gz
+tar -xvzf ~/fichier_sauvegarde.tar.gz fichier_à_extraire
+
+pax -w -f etc.tar /etc
+pax -f etc.tar
+pax -r -f etc.tar /etc
+
+
+#######################
+
+Processus
+
+PID : PPID ; LWP ; PGID ; UID ; GIDs ; TTY ; NICE ; STIME ; TIME ; CMD
+
+ps ; pstree ; kill ; pkill ; killall ; pgrep ; lsof ; fuser ; export ; env ; ldd ; nice,renice ; free ; uptime ; top
+ldd : liste les bibliothèques associées à un exécutable
+
+signaux : 
+1 HUP
+2 INT 
+9 KILL
+15 TERM
+
+PS 
+-e : liste tous les processus
+-f : les principaux attributs des processus
+-l : beaucoup d'attributs
+-j : le PGID
+-L : le LWP
+-u user
+
+Bibliothèques : chargées par l'utilitaire ld.so.
+Cherche 1) les rep. mentionnés par la var. d'env. LD_LIBRARY_PATH
+2) le fichier /etc/ld.so.cache
+3) parcours des rep. /lib et /usr/lib
+ldconfig permet d'ajouter des bibliothèques à tout moment
 
 
