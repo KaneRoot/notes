@@ -409,6 +409,8 @@ telinit ; init		# Changement du niveau d'init
 
 update-rc.d
 
+shutdown -c			# annuler le shutdown
+shutdown -h +20			# arret dans 20 minutes
 shutdown -r +3 "maintenance"	# redémarrage dans 3 minutes
 
 
@@ -418,4 +420,69 @@ ln -s /etc/init.d/service.sh /etc/rc2.d/S99service.sh
 Le tuer en premier
 ln -s /etc/init.d/service.sh /etc/rc0.d/K00service.sh
 
+
+#######################
+
+Réseau
+
+eth0:1 			# carte virtuelle associée à eth0
+/etc/nsswitch.conf	# services de noms utilisés + ordre
+/etc/hosts		# service de noms local
+/etc/resolv.conf	# liste des adresses DNS
+
+ifconfig	# configure l'adresse IP + le masque de réseau
+iwconfig	# " une carte sans fil
+ifup,ifdown	# active/désactive une carte réseau
+dhclient	# active le client dhcp : obtenir une conf dynamique
+route		# configure les tables de routage. Fixe une @ par défaut.
+hostname	# fixe le nom du système
+netstat -r 	# affiche la table de routage actuelle (et donc l'@ gateway par défaut)
+traceroute	# liste les passerelles traversées
+nslookup	# teste la résolution DNS
+ethtool		# affiche les paramètres de liaison avec le switch
+
+netstat 
+-r	# affiche au format "route"
+-n	# affiche les valeurs numériques et pas les noms (http = 80)
+-a 	# sockets actifs
+-e	# AUCUNE PUTAIN D'IDÉE
+-p	# affiche le PID et le nom de processus propriétaire du socket
+
+USAGE
+netstat -an | grep ":6600"
+
+
+nmap		# liste les ports ouverts (scan)
+
+/etc/services	# liste des services (port + protocole associé)
+
+xinetd
+/etc/xinetd.d/
+service telnet
+{
+	socket_type = stream	# TCP != dgrap (UDP)
+	wait = no		# 1 serveur / client
+	user = root
+	server = /usr/kerberos/sbin/telnetd
+	server_args = -D options
+	disable = yes
+}
+
+/etc/hosts.{allow,deny}
+
+uname -n ; hostname -f	# affiche le nom réseau du système
+ping -c3 karchnu.fr
+nslookup karchnu.fr
+nslookup 192.168.0.100
+
+traceroute -n karchnu.fr # ensemble des passerelles traversées
+
+Conf d'une carte réseau à la volée :
+ifdown eth0	# on désactive eth0
+ifconfig eth0 10.0.0.1 netmask 255.255.0.0 broadcast 10.0.255.255
+route add default gw 10.0.0.254
+
+Conf d'une carte réseau virtuelle à la volée
+ifconfig eth0:1 10.0.0.1 netmask 255.255.0.0 broadcast 10.0.255.255
+ifconfig eth0:1 down
 
