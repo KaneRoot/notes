@@ -1,0 +1,19 @@
+
+UTILISATION: SCREEN
+
+    * Ctrl + a puis c : créer une nouvelle "fenêtre".
+    * Ctrl + a puis w : affiche la liste des "fenêtres" actuellement ouvertes. En bas de l'écran vous verrez apparaître par exemple : 0-$ bash  1*$ bash. Cela signifie que vous avez 2 fenêtres ouvertes, l'une numérotée 0, l'autre 1. Celle sur laquelle vous vous trouvez actuellement contient une étoile * (on se trouve donc ici dans la fenêtre n°1).
+    * Ctrl + a puis A : renomme la fenêtre actuelle. Ce nom apparaît lorsque vous affichez la liste des fenêtres avec Ctrl + a puis w.
+    * Ctrl + a puis n : passer à la fenêtre suivante ("next").
+    * Ctrl + a puis p : passer à la fenêtre précédente ("previous").
+    * Ctrl + a puis Ctrl + a : revenir à la dernière fenêtre utilisée.
+    * Ctrl + a puis un chiffre de 0 à 9 : passer à la fenêtre n°X.
+    * Ctrl + a puis " : choisir la fenêtre dans laquelle on veut aller.
+    * Ctrl + a puis k : ferme la fenêtre actuelle ("kill").
+    * Ctrl + a puis S : découper screen en plusieurs parties ("split").
+    * Ctrl + a puis TAB : passer d'une fenêtre à l'autre.
+    * Ctrl + a puis d : détacher screen.
+    * Ctrl + a puis X : fermer une fenêtre splitée.
+
+screen -r numéro_de_session (num facultatif, uniquement si plusieurs sessions)
+    
