@@ -1,0 +1,227 @@
+shutter : logiciel de capture d'écran
+
+at :	
+	atrm pour supprimer un at
+	atq pour lister
+	Pour afficher en graphique : at puis "export DISPLAY=:0.0" et les logiciels
+
+cron :	
+	crontab -l = la liste des tâches
+	crontab -e = modifier le fichier de configuration de cron
+		ex: 30 20,21-23 */10 * 1 = à 20h30 et de 21 à 23 h 30 tous les mois, toutes les semaines le dimanche
+
+irssi :
+	~/.irssi/config
+	/exec -o pastebin ~/.test.sh
+		-o = sortie de pastebin programme
+
+BugTracker
+
+UZBL = navigateur internet modulaire
+
+setxkbmap fr bepo
+setxkbmap fr
+
+Logiciel sympa : YAD (un peu comme zenity)
+shebang
+#!/usr/bin/env python
+	
+	Le Python
+
+	str = "Coucou"
+	str * 2 va donner CoucouCoucou
+	str[1] donne o
+	str[1:4] donne ouc
+	str[-1] donne u
+	str[-2:] donne ou // Donne jusqu'à la fin de la chaîne
+	len(str) donne la longueur de la chaîne
+	str = """
+		Coucou bla
+				gsgegs
+				geg
+				agqqqh	gzge
+		"""
+	if a < 0 :
+		print a
+	
+	Tant qu'il y a des tabulations, on est dans la condition, pas d'accolades
+
+	b = 2
+	c = 4
+	b,c = c,b
+	b donne 4 et c donne 2
+
+	suite de fibbo:
+	a,b = 0,1
+	while b < 500:
+		print b
+		a,b = b, a+b
+	
+	Pas de files, pas de Piles, pas de Tableau : que des LISTES
+
+	l = ['coucou', 'bla']
+	l[0] donne coucou
+	l * 2 donne ['coucou', 'bla', 'coucou', 'bla']
+
+	str[2] = a donne une erreur
+	ajouter un élément dans la liste
+	l[1:1] = ["bien"]
+	Pour ne rien faire : pass
+	exemple : 
+	if a < 0 :
+		pass
+	elif
+		...
+
+	for elem in l:
+		print elem
+	
+		
+	def dire_kane(n):
+		for i in range(n):
+			print "kane"
+	
+	range(4,100,10) // Début : 4, de 10 en 10 jusqu'à 100
+
+	récupérer une frappe de l'utilisateur en lui demandant quelque-chose
+	stru = raw_input("Super prompt de Kane, tape rien :")
+
+	if stru in ["Coucou", "bla","bidule"]
+	
+
+python.org/doc
+/proc 
+C'est la distrib qui le gère
+info temps réel
+Chargé avant les modules pour savoir ce qu'il faut mettre en module
+Les numéros ce sont les processus (leur PID) 
+On peut aller voir les infos sur les processus comme : 
+cmdline = la ligne de commande utilisée
+status = des infos 
+cwd = current working directory = affiche l'endroit où le fichier est exécuté (peut changer)
+
+/sys/class/power_supply/ <= batteries
+
+/sys/class/leds <= 
+			mmc0 = Disque dur
+			a....assoc
+				
+
+dans /proc/num/task/ il y a l'ensemble des threads du processus
+
+ls -la | awk {print $5} donne la 5ème colonne :o
+
+
+pgrep ping = donne le PID du ping lancé
+
+/bin = utilitaires GNU
+
+lost+found = ext3 et 4 
+/dev = généré par le noyau au démarrage, fichiers de type bloc (ls -l : c...)
+/sbin = binaires utilisables que par les superusers 
+
+
+Les habitudes à avoir : TLS et SSL à privilégier
+	=> always ssl 
+	=> forceTLS 
+	StarTLS = gens normalement biens qui vérifient les communications... payant.
+
+Être anonyme : TOR => Polipo pour aller plus vite
+
+kriptoanarchie.org
+LVM // C 
+
+
+dd if=/dev/urandom of=/dev/sdX bs=512
+cfdisk /dev/sdX
+cryptsetup luksFormat -c aes-xts-plain -s 512 -y /dev/sdXY
+
+// Réouvrir la clef
+// Il faut spécifier une étiquette
+
+cryptsetup luksOpen /dev/sdb1 etiquette
+
+// Maintenant dans /dev/mapper on a notre partition "etiquette"
+
+ls /dev/mapper
+
+
+LVM = VG LV PV 
+VG = simulation d'un DD avec des partitions (LV) dedans
+
+// On va créer un truc dans /dev (/dev/label)
+vgcreate label /dev/mapper/cryptedPartition
+vgdisplay
+
+lvcreate -L 2G label
+
+lvcreate -l 100%FREE tuto
+
+mkfs.ext4 /dev/tuto/lvol1
+
+// Démonter correctement
+
+
+cryptsetup luksOpen /dev/sdb1 cryptedPartition
+
+mkfs.ext4 /dev/mapper/cryptedPartition
+
+mkdir /tmp/testLV1
+mount /dev/monVG/lvol0 /tmp/lvol1
+
+
+// création d'un fichier keyfile bs=512= taille de bloc et count = nombre de blocs
+dd if=/dev/urandom of=/home/kane/keyfile bs=512 count=4
+
+// Création d'une seconde partition 
+cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/sdb2 /home/kane/keyfile
+cryptsetup luksOpen /dev/sdc2 nomPartitionDechiffree -d /home/kane/keyfile
+ollydbg = désassembleur
+
+Monter un serveur DHCP
+
+dhcpd = serveur dhcp
+
+iwlist wlan0 scan
+
+brctl = créée des interfaces virtuelles
+
+qemu-img create atelier.img 2G
+modprobe kvm-intel
+
+qemu-kvm -hda atelier.img -cdrom /home/kane/mini.iso -m 500
+bibliothèque curses en simple : CDK
+
+OPENMP = du parallélisme en C en 2 lignes
+SCREEN <=> NEERCS
+
+CONF VIMRC
+
+set t_Co=256
+
+syntax on
+colorscheme mustang
+set cindent
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+filetype plugin on
+
+omnicppcomplete = bien.
+
+NERDtree = connaissais déjà.
+
+iotop
+pacman -Qqet > packages.txt
+pacman -S $(cat packages.txt)
+
+Pour les serveurs FTP : 
+Midnight Commander
+
+Pour les serveurs :
+screen
+proftpd
+nohup (détache la commande de la console: utilisation :: nohup commande)
+
+Se connecter à un serveur de fichier distant sous gnome = GVFS
