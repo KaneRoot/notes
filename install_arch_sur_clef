@@ -1,7 +1,3 @@
-/dev/sdb1 = /boot
-/dev/sdb5 = /
-/dev/sdb6 = /home
-
 Pour tout faire tout seul : pacman -r /mnt/chroot -Syy
 
 monter / (de la clé) sur /mnt/chroot
