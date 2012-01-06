@@ -126,3 +126,5 @@ Pour les serveurs :
 nohup (détache la commande de la console: utilisation :: nohup commande)
 
 Se connecter à un serveur de fichier distant sous gnome = GVFS
+
+Git cherry-pic = récupérer les commits d'une branche sans la merge
