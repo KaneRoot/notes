@@ -1,0 +1,12 @@
+#!/bin/bash
+
+server=#karchnu.fr
+dir=#/home/git
+
+for repo in $*
+do
+	cd ${repo}
+	git remote add home ssh://git@${server}${dir}/${repo}.git
+	git push home master
+	cd ..
+done

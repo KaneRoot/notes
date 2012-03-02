@@ -486,3 +486,24 @@ Conf d'une carte réseau virtuelle à la volée
 ifconfig eth0:1 10.0.0.1 netmask 255.255.0.0 broadcast 10.0.255.255
 ifconfig eth0:1 down
 
+
+#######################
+
+Xnest	# serveur X fonctionnant sous forme de fenêtre X
+xfs	# Le serveur de polices graphiques
+Xorg -configure	# reconfiguration du serveur X
+twm	# gestionnaire de fenêtres
+xhosts	# Contrôle l'accès au serveur
+xrdb	# Charge un fichier de ressources au niveau d'un serveur X
+xlsfonts	# Liste des polices X11 
+fc-list	# liste les polices Xft
+fc-cache	# force la mise à jour de la liste des polices xft disponibles
+
+RDP et VNC
+tsclient	# client pour terminal server (RDP) et VNC
+rdesktop	# RDP pour l'environnement X
+vncviewer	# Client VNC
+Xvnc	# Serveur X vnc
+vncserver	# Active le serveur Xvnc. Configure un mdp.
+vncpasswd
+

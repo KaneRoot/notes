@@ -1,13 +1,3 @@
-
-BugTracker
-
-UZBL = navigateur internet modulaire
-
-setxkbmap fr bepo
-setxkbmap fr
-
-Logiciel sympa : YAD (un peu comme zenity)
-shebang
 #!/usr/bin/env python
 	
 	Le Python

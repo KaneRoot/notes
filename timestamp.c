@@ -18,7 +18,7 @@ int main( int argc, char **argv)
 	printf("Nom de la machine : %s\nType de machine : %s\n", buf.nodename, buf.sysname);
 
 	struct stat statfile;
-	if( stat("at5.commentaire", &statfile) == -1 )
+	if( stat("at_commentaires", &statfile) == -1 )
 	{
 		if(errno == EACCES)
 			printf("Pas de droit sur le fichier\n");

@@ -1,15 +1,4 @@
-pacman -Qqet > packages.txt
-pacman -S $(cat packages.txt)
 
-Pour les serveurs FTP : 
-Midnight Commander
-
-Pour les serveurs :
-screen
-proftpd
-nohup (détache la commande de la console: utilisation :: nohup commande)
-
-Se connecter à un serveur de fichier distant sous gnome = GVFS
 UTILISATION: SCREEN
 
     * Ctrl + a puis c : créer une nouvelle "fenêtre".
