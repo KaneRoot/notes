@@ -1,0 +1,11 @@
+01 : t0 = tests = Dancer
+02 : pad
+03 : nginx + site ARN
+04 : vm principale (screen avec weechat) + site perso + proxy web
+05 : bdd (mysql)
+
+06 : gitosis
+07 : mail
+08 : named (bind)
+09 : KIMORY VM
+10 : forum
