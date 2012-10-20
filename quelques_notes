@@ -1,0 +1,8 @@
+dbus-send --print-reply --session \
+	--dest="org.freedesktop.DBus" \
+	/org/freedesktop/DBus/Introspectable \
+	org.freedesktop.DBus.Introspectable.Introspect
+
+
+echo o > /proc/sysrq-trigger pour arrêter l'ordi
+/usr/bin/system-config-printer
