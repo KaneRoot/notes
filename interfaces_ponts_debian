@@ -1,0 +1,55 @@
+iface dummy0 inet manual
+	pre-up modprobe dummy
+	post-down rmmod dummy
+
+auto intersite
+iface intersite inet static
+	address 10.0.12.256
+	network 10.0.10.0
+	netmask 255.255.255.0
+	broadcast 10.0.12.255
+	bridge_ports dummy0
+#bridge-ifaces eth1
+#up ifconfig $IFACE up
+	bridge_stp off
+	bridge_fd 0
+	bridge_maxwait 0
+#bridge_hello 2
+#bridge_maxage 12
+	pre-up ifup dummy0
+	post-down ifdown dummy0
+	post-up route add -net 10.0.0.0/16 gw 10.0.12.254
+
+iface br0 inet static
+	address 192.168.1.1
+	netmask 255.255.255.0
+	broadcast 192.168.1.255
+
+
+##################
+auto br0
+iface br0 inet static
+	address 192.168.0.100
+	netmask 255.255.255.0
+	network 192.168.0.0
+	broadcast 192.168.0.255
+	gateway 192.168.0.1
+	bridge_ports eth0
+	bridge_stp on
+	bridge_maxwait 0
+	bridge_fd 0
+
+
+#### à ajouter dans /etc/sysctl.conf
+
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
+
+# sysctl -p /etc/sysctl.conf
+
+###### à mettre dans /etc/rc.local
+# /sbin/sysctl -p /etc/sysctl.conf
+brctl addbr br0
+brctl addif br0 eth0
+
