@@ -1,2 +1,4 @@
 convert animation.gif +adjoin animation_%d.gif
 Pour décomposer un gif
+
+convert -size 500x400 bla.png bidule.png
